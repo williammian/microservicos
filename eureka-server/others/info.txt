@@ -1,0 +1,16 @@
+
+GET para
+http://localhost:8761/eureka/apps
+
+mostra as aplicações que se registraram no Eureka
+
+--------------------------------------
+
+Nas requisições REST implementadas, passamos apenas o nome da outra aplicação. O Spring substitui automaticamente o nome pelo IP.
+Os microsserviços não precisam conhecer o endereço IP das outras aplicações, mas apenas o nome que elas se registraram no Eureka.
+
+Service registry é um servidor central, onde todos os microsserviços ficam cadastrados (nome e IP/porta).
+
+Service discovery é um mecanismo de descoberta do IP do microsserviço pelo nome.
+
+Dessa forma, nenhum microsserviço fica acoplado ao outro pelo IP/porta.

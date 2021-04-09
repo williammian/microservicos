@@ -1,0 +1,5 @@
+Domínio "quebrado" em contextos menores.
+
+3 microserviços: Loja, Fornecedor e Transportador
+
+Um microsserviço é a implementação de um contexto

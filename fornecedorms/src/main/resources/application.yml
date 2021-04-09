@@ -1,0 +1,22 @@
+
+server:  port: 8081
+
+spring:
+  application:
+    name: 'fornecedorms'
+  datasource:
+    password: root
+    username: root
+    url: jdbc:mysql://localhost:3306/fornecedorms?useTimezone=true&serverTimezone=UTC
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
