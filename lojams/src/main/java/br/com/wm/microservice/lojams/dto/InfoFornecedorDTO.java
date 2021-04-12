@@ -1,4 +1,4 @@
-package br.com.wm.microservice.lojams.controller.dto;
+package br.com.wm.microservice.lojams.dto;
 
 public class InfoFornecedorDTO {
 	
