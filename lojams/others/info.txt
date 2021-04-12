@@ -15,5 +15,68 @@ acessa uma instância diferente a cada requisição do usuário.
 
 -------------------------------------------
 
+Requisição inicial (utilizando Ribbon)
+
+
+@Service
+public class CompraService {
+
+	@Autowired
+	private RestTemplate client;
+	
+	@Autowired
+	private DiscoveryClient eurekaClient;
+	
+	public void realizaCompra(CompraDTO compra) {
+		
+		ResponseEntity<InfoFornecedorDTO> exchange = 
+				client.exchange("http://fornecedorms/info/" + compra.getEndereco().getEstado(),
+				HttpMethod.GET, null, InfoFornecedorDTO.class);
+		
+		eurekaClient.getInstances("fornecedorms").stream()
+		.forEach(fornecedorms -> {
+			System.out.println(fornecedorms.getHost() + ":" + fornecedorms.getPort());
+		});
+		
+		System.out.println(exchange.getBody().getEndereco());
+		
+	}
+}
+
+--------------------------------------------
+
+Requisição (com Spring Feign)
+
+Anotar classe main com
+@EnableFeignClients
+
+Criar interface
+
+@FeignClient("fornecedorms")
+public interface FornecedorClient {
+
+	@GetMapping("/info/{estado}")
+	InfoFornecedorDTO getInfoPorEstado(@PathVariable String estado);
+	
+}
+
+@Service
+public class CompraService {
+	
+	@Autowired
+	private FornecedorClient fornecedorClient;
+
+	public void realizaCompra(CompraDTO compra) {
+		
+		InfoFornecedorDTO info = fornecedorClient.getInfoPorEstado(compra.getEndereco().getEstado());
+		
+		System.out.println(info.getEndereco());
+		
+	}
+
+}
+
+----------------------------------------------
+
 
 
