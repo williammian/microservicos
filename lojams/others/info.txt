@@ -3,3 +3,17 @@ Domínio "quebrado" em contextos menores.
 3 microserviços: Loja, Fornecedor e Transportador
 
 Um microsserviço é a implementação de um contexto
+
+-------------------------------------------
+
+Load Balancing é o processo de distribuir as requisições vindas dos usuários para as várias instâncias disponíveis.
+
+Funcionamento do Client Side Load Balancing:
+
+A aplicação cliente conhece as instâncias disponíveis e, usando algum algoritmo de rotação do Ribbon, 
+acessa uma instância diferente a cada requisição do usuário.
+
+-------------------------------------------
+
+
+
