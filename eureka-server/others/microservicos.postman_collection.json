@@ -61,6 +61,26 @@
 				"url": null
 			},
 			"response": []
+		},
+		{
+			"name": "CONFIG-SERVER - fornecedor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/fornecedorms/default",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"fornecedorms",
+						"default"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
