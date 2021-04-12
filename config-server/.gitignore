@@ -1,8 +1,3 @@
-eureka-server/target/
-fornecedorms/target/
-lojams/target/
-config-server/target/
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

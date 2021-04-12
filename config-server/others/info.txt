@@ -1,0 +1,73 @@
+Adicionar dependencia do Config Server
+
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-config-server</artifactId>
+</dependency>
+
+---------------------------------------
+
+Adicionar anotação na classe main
+
+@EnableConfigServer
+
+---------------------------------------
+
+No application.yml
+
+Para buscar as configurações na maquina local
+
+server:
+  port: 8888
+  
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: c:/Fontes/FontesSTS/microservicos/microservices-repo
+          
+----------------------------------------
+
+GET
+
+http://localhost:8888/fornecedorms/default
+
+fornecedorms -> configuracao a acessar (nome do arquivo)
+
+default -> profile a acessar
+
+-------------------------------------------
+
+bootstrap.yml
+
+O arquivo bootstrap.yml é carregado em um contexto com maior precedência, 
+chamado de Bootstrap Application Context. É neste contexto que o Spring Cloud Config Client se conecta ao configuration server, 
+baixa e disponibiliza as variáveis de ambiente para o Spring Application Context, que é o contexto da nossa aplicação.
+
+--------------------------------------------
+
+No application.yml
+
+Para buscar as configurações no Github
+
+server:
+  port: 8888
+  
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/williammian/microservices-repo
+          search-paths: fornecedorms
+          default-label: main
+          
+-------------------------------------------
+
+
+
+
+
