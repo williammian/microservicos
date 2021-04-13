@@ -1,0 +1,18 @@
+Hystrix - Circuit Breaker
+
+Adicionar dependência
+
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+</dependency>
+
+Adicionar anotação na classe main
+
+@EnableCircuitBreaker
+
+Adicionar anotação no serviço desejado
+
+@HystrixCommand(fallbackMethod = "realizaCompraFallBack")
+
+-------------------------------
