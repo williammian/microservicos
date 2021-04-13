@@ -96,5 +96,46 @@ Toda a implementação da interface é gerada pelo Spring Feign.
 
 -----------------------------------------------
 
+LOGs
+
+Papertrail (centralizador de logs dos microservicos)
+
+https://papertrailapp.com/
+
+Após criado um projeto, logo no começo, há a configuração de host e porta.
+
+Help
+https://documentation.solarwinds.com/en/success_center/papertrail/content/kb/configuration/java-logback-logging.htm?cshid=pt-configuration-java-logback-logging
+
+Criar arquivo logback.xml na pasta resources
+
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="PAPERTRAIL"
+		class="ch.qos.logback.classic.net.SyslogAppender">
+		<syslogHost>logs6.papertrailapp.com</syslogHost>
+		<port>14395</port>
+		<facility>USER</facility>
+		<suffixPattern>my-app: %logger %msg</suffixPattern>
+	</appender>
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="PAPERTRAIL" />
+	</root>
+</configuration>
+
+---------------------------------------------------
+
+
+
 
 
