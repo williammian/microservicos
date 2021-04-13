@@ -173,5 +173,23 @@ Modificar arquivo logback.xml
 
 ---------------------------------------------------
 
+Como se trata de uma arquitetura distribuída, temos logs distribuídos.
+Ou seja, cada microsserviço (e instância dele) possui o seu log.
+Isso dificulta o acompanhamento e rastreabilidade das requisições.
+
+Para unificar os logs, precisamos de agregadores de log.
+Como implementação de um agregador, usamos o Papertrail, um agregador como serviço.
+
+Usamos a biblioteca Logback para gerar e enviar os logs ao agregador.
+O Logback possui um appender, que possibilita o envio dos logs.
+
+Para acompanhar uma transação nos logs, usamos uma correlation-id.
+A correltation-id é um identificador da transação, que é passada de requisição pra requisição.
+Dessa forma, podemos entender quais requisições fazem parte da mesma transação.
+
+A biblioteca Spring Sleuth, que é usada para gerar a correlation-id.
+
+------------------------------------------------------
+
 
 
