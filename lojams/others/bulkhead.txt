@@ -1,0 +1,29 @@
+Bulkhead
+
+Agrupamento de threads por serviços
+
+Quando temos microsserviços, isso significa que podemos escalar a nossa aplicação horizontalmente, ou seja, 
+subir mais máquinas para ter várias instâncias e recursos de hardware disponíveis para estas. 
+Além disso, podemos ter várias threads dentro do mesmo microsserviço. 
+Com Bulkhead, ganhamos mais uma funcionalidade de processamento paralelo, que nos traz qual vantagem?
+
+Poder agrupar e alocar grupos de threads para processamentos diferentes. 
+Dessa forma, uma das chamadas de um microsserviço, que sofre lentidão por causa de uma integração com problema de performance, 
+não indisponibiliza todas as outras chamadas do mesmo microsserviço.
+
+Precisamos implementar um microsserviço tolerante a falhas, resiliente a integrações defeituosas e 
+capaz de não indisponibilizar toda a aplicação por causa de uma única funcionalidade.
+
+------------------------------------------------------------
+
+No serviço, na anotação @HystrixCommand, adicionar o parâmetro threadPoolKey
+
+@HystrixCommand(threadPoolKey = "getByIdThreadPool")
+public Compra getById(Long id) { ....
+
+@HystrixCommand(fallbackMethod = "realizaCompraFallBack",
+			threadPoolKey = "realizaCompraThreadPool")
+public Compra realizaCompra(CompraDTO compra) { ....
+
+
+-------------------------------------------------------------

@@ -1,7 +1,12 @@
 package br.com.wm.microservice.lojams.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Compra {
 	
+	@Id
 	private Long pedidoId;
 	
 	private Integer tempoDePreparo;

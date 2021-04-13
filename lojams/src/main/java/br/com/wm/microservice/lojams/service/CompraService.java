@@ -12,6 +12,7 @@ import br.com.wm.microservice.lojams.dto.CompraDTO;
 import br.com.wm.microservice.lojams.dto.InfoFornecedorDTO;
 import br.com.wm.microservice.lojams.dto.InfoPedidoDTO;
 import br.com.wm.microservice.lojams.model.Compra;
+import br.com.wm.microservice.lojams.repository.CompraRepository;
 
 @Service
 public class CompraService {
@@ -20,8 +21,17 @@ public class CompraService {
 	
 	@Autowired
 	private FornecedorClient fornecedorClient;
+	
+	@Autowired
+	private CompraRepository compraRepository;
+	
+	@HystrixCommand(threadPoolKey = "getByIdThreadPool")
+	public Compra getById(Long id) {
+		return compraRepository.findById(id).orElse(new Compra());
+	}
 
-	@HystrixCommand(fallbackMethod = "realizaCompraFallBack")
+	@HystrixCommand(fallbackMethod = "realizaCompraFallBack",
+			threadPoolKey = "realizaCompraThreadPool")
 	public Compra realizaCompra(CompraDTO compra) {
 		
 		final String estado = compra.getEndereco().getEstado();
@@ -37,7 +47,9 @@ public class CompraService {
 		compraSalva.setTempoDePreparo(pedido.getTempoDePreparo());
 		compraSalva.setEnderecoDestino(compra.getEndereco().toString());
 		
-//		try {
+		compraRepository.save(compraSalva);
+		
+//		try { //usado para testar o circuit breaker
 //			Thread.sleep(2000);
 //		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block

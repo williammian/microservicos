@@ -138,6 +138,25 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Loja - compra",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/compra/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"compra",
+						"6"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
