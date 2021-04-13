@@ -1,0 +1,49 @@
+Hystrix - Circuit Breaker
+
+Adicionar dependência
+
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+</dependency>
+
+Adicionar anotação na classe main
+
+@EnableCircuitBreaker
+
+Adicionar anotação no serviço desejado
+
+@HystrixCommand(fallbackMethod = "realizaCompraFallBack")
+
+----------------------------------------------
+
+É possível forçar que uma requisição seja cancelada após algum tempo, 
+utilizando a técnica de Timeout, onde definimos um tempo máximo de processamento daquela requisição. 
+Qual a vantagem do Circuit Breaker, em comparação ao uso de Timeout?
+
+Possui a vantagem principal de fechar o circuito, evitando que uma requisição com alto índice de falhas seja executada, 
+até que o microsserviço volte a operar dentro dos parâmetros aceitáveis.
+
+O Circuit Breaker tem como funcionalidade principal a análise das requisições anteriores, 
+para decidir se deve parar de repassar as requisições vindas do cliente para um microsserviço com problemas de performance. 
+Enquanto o circuito está fechado, o Hystrix continua tentando a cada 5 segundos, 
+com o objetivo de verificar se o servidor voltou a funcionar normalmente.
+
+------------------------------------------------
+
+A capacidade que o Hystrix tem com Circuit Breaker pode ser aprimorada pelo Fallback em qual circunstância?
+
+Quando temos a possibilidade de criar uma funcionalidade de tratamento para uma execução que foi "cortada" pelo Circuit Breaker.
+
+O Circuit Breaker implementado pelo Hystrix executa o processamento em uma thread separada. 
+Quando o tempo limite é excedido, o Hystrix mata a execução da thread e, caso configurado, 
+repassa a execução para o método de Fallback, de forma que este possa implementar livremente um tratamento de erro.
+
+-------------------------------------------------
+
+Tempo padrão de processamento com hystrix é 1 segundo
+
+-------------------------------------------------
+
+
+
