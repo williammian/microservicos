@@ -11,6 +11,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 hystrix:
+  shareSecurityContext: true
   command:
     realizaCompra:
       execution:
@@ -22,4 +23,9 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 1000
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8088/user
       

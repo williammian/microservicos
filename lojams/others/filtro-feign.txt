@@ -1,0 +1,22 @@
+
+Implementar um filtro do Feign para repassar o token do usuário nas chamadas para os microsserviços Fornecedor e Transportador
+
+Em LojaApplication
+
+@Bean
+public RequestInterceptor getInterceptorDeAutenticacao() {
+	return new RequestInterceptor() {
+		
+		@Override
+		public void apply(RequestTemplate template) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if(authentication == null) {
+				return;
+			}
+			
+			OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails)authentication.getDetails();
+			
+			template.header("Authorization", "Bearer" + details.getTokenValue());
+		}
+	};
+}

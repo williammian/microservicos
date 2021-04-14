@@ -34,6 +34,44 @@
 			"response": []
 		},
 		{
+			"name": "Loja - compra - auth",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itens\": [\r\n        {\r\n            \"id\" : 1,\r\n            \"quantidade\": 5\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"quantidade\": 1\r\n        }\r\n    ],\r\n    \"endereco\": {\r\n        \"rua\": \"Rua da Maria\",\r\n        \"numero\": 123,\r\n        \"estado\": \"GO\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/compra",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"compra"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Fornecedor - info",
 			"request": {
 				"method": "GET",
@@ -170,6 +208,44 @@
 					],
 					"port": "8081",
 					"path": [
+						"pedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fornecedor/Gateway - pedido",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"quantidade\": 5\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"quantidade\": 1\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5555/fornecedorms/pedido",
+					"host": [
+						"localhost"
+					],
+					"port": "5555",
+					"path": [
+						"fornecedorms",
 						"pedido"
 					]
 				}

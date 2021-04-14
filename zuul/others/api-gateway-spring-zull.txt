@@ -15,3 +15,16 @@ O Zuul utiliza o Eureka para conhecer as instâncias dos microsserviços e, usan
 
 O uso do Api Gateway, cria um único ponto de acesso à aplicação.
 
+---------------------------------------------------------------
+
+Repassando o token
+
+no application.yml
+
+zuul:
+  sensitive-headers:
+  - Cookie, Authorization
+
+----------------------------------------------------------------
+
+
