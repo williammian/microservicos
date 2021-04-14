@@ -1,0 +1,5 @@
+Tratamento de erro
+
+Com microsserviços, uma transação do usuário passa por diversos microsserviços e a gestão dessa transação fica sob a responsabilidade do programador.
+
+Tratar os erros na transação, marcando o que foi processado com o uso de estados.

@@ -17,6 +17,7 @@ import br.com.wm.microservice.lojams.dto.InfoFornecedorDTO;
 import br.com.wm.microservice.lojams.dto.InfoPedidoDTO;
 import br.com.wm.microservice.lojams.dto.VoucherDTO;
 import br.com.wm.microservice.lojams.model.Compra;
+import br.com.wm.microservice.lojams.model.CompraState;
 import br.com.wm.microservice.lojams.repository.CompraRepository;
 
 @Service
@@ -42,6 +43,13 @@ public class CompraService {
 			threadPoolKey = "realizaCompraThreadPool",
 			commandKey = "realizaCompra")
 	public Compra realizaCompra(CompraDTO compra) {
+				
+		Compra compraSalva = new Compra();
+		compraSalva.setState(CompraState.RECEBIDO);
+		compraSalva.setEnderecoDestino(compra.getEndereco().toString());
+		compraRepository.save(compraSalva);
+		
+		compra.setCompraId(compraSalva.getId());
 		
 		final String estado = compra.getEndereco().getEstado();
 		
@@ -50,6 +58,10 @@ public class CompraService {
 		
 		LOG.info("Realizando um pedido");
 		InfoPedidoDTO pedido = fornecedorClient.realizaPedido(compra.getItens());
+		compraSalva.setState(CompraState.PEDIDO_REALIZADO);
+		compraSalva.setPedidoId(pedido.getId());
+		compraSalva.setTempoDePreparo(pedido.getTempoDePreparo());
+		compraRepository.save(compraSalva);
 		
 		LOG.info("Realizando um voucher de entrega");
 		InfoEntregaDTO entregaDTO = new InfoEntregaDTO();
@@ -59,11 +71,8 @@ public class CompraService {
 		entregaDTO.setEnderecoDestino(compra.getEndereco().toString());
 		VoucherDTO voucher = transportadorClient.reservaEntrega(entregaDTO);
 		
-		LOG.info("Salvando compra");
-		Compra compraSalva = new Compra();
-		compraSalva.setPedidoId(pedido.getId());
-		compraSalva.setTempoDePreparo(pedido.getTempoDePreparo());
-		compraSalva.setEnderecoDestino(compra.getEndereco().toString());
+		LOG.info("Concluindo compra");
+		compraSalva.setState(CompraState.RESERVA_ENTREGA_REALIZADA);
 		compraSalva.setDataParaEntrega(voucher.getPrevisaoParaEntrega());
 		compraSalva.setVoucher(voucher.getNumero());
 		compraRepository.save(compraSalva);
@@ -81,6 +90,10 @@ public class CompraService {
 	}
 	
 	public Compra realizaCompraFallBack(CompraDTO compra) {
+		if(compra.getCompraId() != null) {
+			return compraRepository.findById(compra.getCompraId()).get();
+		}
+		
 		Compra compraFallback = new Compra();
 		compraFallback.setEnderecoDestino(compra.getEndereco().toString());
 		return compraFallback;
