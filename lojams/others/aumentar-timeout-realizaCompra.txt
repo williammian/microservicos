@@ -1,0 +1,24 @@
+Aumentar timeout do método realizaCompra
+
+Na anotação HystrixCommand, do método realizaCompra, adicionar o atributo commandKey = "realizaCompra".
+
+@HystrixCommand(fallbackMethod = "realizaCompraFallBack",
+            threadPoolKey = "realizaCompraThreadPool",
+            commandKey = "realizaCompra")
+public Compra realizaCompra(CompraDTO compra) { .... }
+
+
+No application.yml da loja adicionar o seguinte (aumentando para 5 segundos o timeout do método realizaCompra):
+
+hystrix:
+  command:
+    realizaCompra:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000

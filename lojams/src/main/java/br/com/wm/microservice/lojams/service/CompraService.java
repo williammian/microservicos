@@ -39,7 +39,8 @@ public class CompraService {
 	}
 
 	@HystrixCommand(fallbackMethod = "realizaCompraFallBack",
-			threadPoolKey = "realizaCompraThreadPool")
+			threadPoolKey = "realizaCompraThreadPool",
+			commandKey = "realizaCompra")
 	public Compra realizaCompra(CompraDTO compra) {
 		
 		final String estado = compra.getEndereco().getEstado();
