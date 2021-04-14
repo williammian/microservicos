@@ -140,6 +140,43 @@
 			"response": []
 		},
 		{
+			"name": "Fornecedor - pedido - auth",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"quantidade\": 5\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"quantidade\": 1\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/pedido",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Loja - compra",
 			"request": {
 				"method": "GET",
