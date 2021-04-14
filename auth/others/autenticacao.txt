@@ -1,0 +1,16 @@
+Autenticação
+
+Os microsserviços identificam o usuário logado extraindo o token da requisição
+e consultando os dados do usuário no servidor de autenticação.
+
+Quando o usuário faz uma requisição para um serviço que demanda que o usuário esteja logado, no header da requisição, 
+o usuário envia um token, que ele conseguiu previamente através do servidor de autenticação.
+
+A integração entre o Spring Security e o Spring Cloud Oauth é feita quanto estendemos o WebSecurityConfigurerAdapter e 
+expomos os recursos do Spring Security para serem utilizados pelo Spring Cloud OAuth.
+
+AuthenticationManager e UserDetailService são os beans expostos do Spring Security e injetados no Adapter do Spring Cloud OAuth2: 
+o AuthorizationServerConfigurerAdapter. Mais especificamente, a integração é feita no método configure deste adapter.
+
+
+

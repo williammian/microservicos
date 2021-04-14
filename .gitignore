@@ -4,6 +4,7 @@ lojams/target/
 config-server/target/
 transportadorms/target/
 zuul/target/
+auth/target/
 
 HELP.md
 target/
