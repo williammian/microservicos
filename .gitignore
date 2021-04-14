@@ -3,6 +3,7 @@ fornecedorms/target/
 lojams/target/
 config-server/target/
 transportadorms/target/
+zuul/target/
 
 HELP.md
 target/
